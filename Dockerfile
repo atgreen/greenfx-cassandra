@@ -2,6 +2,7 @@ FROM centos:centos7
 
 RUN rpm -ivh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm
 ADD src/datastax.repo /etc/yum.repos.d/datastax.repo
+ADD src/start.sh /usr/local/bin/start.sh
 
 RUN yum -y install java-1.8.0-openjdk-headless dsc22 && \
     yum -y update && yum clean all
@@ -14,4 +15,5 @@ EXPOSE 7199 7000 7001 9160 9042
 EXPOSE 22 8012 61621
 
 USER cassandra
-CMD cassandra -f
+CMD /usr/local/bin/start.sh
+
